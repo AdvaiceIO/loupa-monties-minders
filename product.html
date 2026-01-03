@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monties Minders - Everyday Montessori at Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #503724;
+            background-color: #EFECE6;
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(80, 55, 36, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8C7467;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: #503724;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: #DED8CD;
+        }
+
+        .nav-link:hover {
+            background: #8C7467;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #8C7467, #DED8CD);
+            z-index: 999;
+            transition: width 0.1s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        .hero-section {
+            padding-top: 10rem;
+            background: linear-gradient(135deg, #EFECE6 0%, #DED8CD 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(80, 55, 36, 0.2);
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .product-name {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #503724;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8C7467;
+            margin: 1.5rem 0;
+        }
+
+        .price-old {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: #8C7467;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(140, 116, 103, 0.3);
+            margin: 2rem 0;
+        }
+
+        .cta-button:hover {
+            background: #503724;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(140, 116, 103, 0.4);
+        }
+
+        .reviews-inline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stars {
+            color: #FFB800;
+            font-size: 1.25rem;
+        }
+
+        .review-count {
+            color: #8C7467;
+            font-weight: 500;
+        }
+
+        details {
+            margin: 2rem 0;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #DED8CD;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #8C7467;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: #8C7467;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        details p {
+            margin-top: 1rem;
+            line-height: 1.8;
+            color: #503724;
+        }
+
+        .image-text-section {
+            background: #fff;
+        }
+
+        .image-text-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .image-text-reverse {
+            background: #EFECE6;
+        }
+
+        .image-text-reverse .image-text-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .text-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #503724;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .text-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #503724;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(80, 55, 36, 0.15);
+        }
+
+        .comparison-section {
+            background: linear-gradient(135deg, #8C7467 0%, #503724 100%);
+            color: #fff;
+        }
+
+        .comparison-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #fff;
+        }
+
+        .comparison-table {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: #DED8CD;
+            padding: 1.5rem;
+            font-weight: 700;
+            color: #503724;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 1.5rem;
+            border-bottom: 1px solid #DED8CD;
+            align-items: center;
+            color: #503724;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .cross {
+            color: #f44336;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .faq-section {
+            background: #EFECE6;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #503724;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .reviews-section {
+            background: #fff;
+        }
+
+        .reviews-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #503724;
+        }
+
+        .review-card {
+            background: #EFECE6;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(80, 55, 36, 0.08);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #503724;
+        }
+
+        .review-date {
+            color: #8C7467;
+            font-size: 0.875rem;
+        }
+
+        .review-stars {
+            color: #FFB800;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            line-height: 1.8;
+            color: #503724;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .hero-section {
+                padding-top: 8rem;
+            }
+
+            .hero-content,
+            .image-text-content,
+            .image-text-reverse .image-text-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-name {
+                font-size: 2rem;
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .text-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 2fr 1fr 1fr;
+                font-size: 0.875rem;
+                padding: 1rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-container">
+            <a href="#" class="logo">Monties Minders</a>
+            <a href="index.html" class="nav-link">Home</a>
+        </div>
+    </nav>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="product-name">Everyday Montessori at Home</h1>
+                    
+                    <div class="reviews-inline">
+                        <div class="stars">★★★★★</div>
+                        <span class="review-count">127 happy parents</span>
+                    </div>
+
+                    <p class="price">
+                        <span class="price-old">$79.00</span>
+                        $39.95
+                    </p>
+
+                    <a href="https://advaice.io" class="cta-button">Get Instant Access Now</a>
+
+                    <details>
+                        <summary>What's Inside This Workbook?</summary>
+                        <p>Everyday Montessori at Home is an interactive workbook designed specifically for working parents or stay-at-home caregivers who want to integrate Montessori principles into their daily routines but feel overwhelmed by complex materials or time-consuming prep. This comprehensive guide provides simple, actionable, screen-free activities that promote independence, fine motor skills, and sensory development with materials commonly found at home. You'll learn how to create a Montessori-aligned environment without expensive tools or formal training. Each activity takes less than 15 minutes to prepare and uses household items you already own. Perfect for busy parents of 3-5 year olds who want to foster independence, creativity, and lifelong learning skills in their children.</p>
+                    </details>
+                </div>
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/hero.png" alt="Everyday Montessori at Home Workbook" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="image-text-section">
+        <div class="container">
+            <div class="image-text-content">
+                <div class="text-content">
+                    <h2>Transform Your Home Into a Montessori Haven</h2>
+                    <p>You don't need expensive materials or a complete room makeover to create a Montessori-inspired environment. This workbook shows you exactly how to use what you already have at home to foster independence, curiosity, and confidence in your child.</p>
+                    <p>With over 50 ready-to-use activities organized by developmental skill, you'll never run out of engaging, screen-free ways to nurture your child's natural love of learning. Each activity includes clear instructions, material lists from items you already own, and age-appropriate variations.</p>
+                    <a href="https://advaice.io" class="cta-button">Start Your Journey Today</a>
+                </div>
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/hero.png" alt="Montessori Home Environment" class="feature-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="image-text-section image-text-reverse">
+        <div class="container">
+            <div class="image-text-content">
+                <div>
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/hero.png" alt="Parent and Child Montessori Activity" class="feature-image">
+                </div>
+                <div class="text-content">
+                    <h2>Designed for Busy Parents Like You</h2>
+                    <p>We understand you're juggling work, household responsibilities, and precious time with your little ones. That's why every activity in this workbook is designed to be low-prep, high-impact, and easily integrated into your daily routine.</p>
+                    <p>No formal training required. No expensive purchases needed. Just practical, proven activities that build essential skills while strengthening your bond with your child. Most activities use items you already have in your kitchen, bathroom, or garage.</p>
+                    <a href="https://advaice.io" class="cta-button">Get Started for $39.95</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison-section">
+        <div class="container">
+            <h2>What You Get vs. What You're Missing</h2>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>Features</div>
+                    <div style="text-align: center;">With Monties Minders</div>
+                    <div style="text-align: center;">Without It</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>50+ Ready-to-Use Activities</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>Uses Materials You Already Own</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>15-Minute Activity Prep Time</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>Step-by-Step Instructions</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>Organized by Developmental Skills</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>No Expensive Materials Needed</strong></div>
+                    <div class="check">✓</div>
+                    <div class="cross">✗</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <details>
+                    <summary>Do I need any prior Montessori training to use this workbook?</summary>
+                    <p>Absolutely not! This workbook is designed specifically for parents with no formal Montessori training. Each activity includes clear, step-by-step instructions with photos and detailed explanations of the educational principles behind each exercise. We've translated complex Montessori concepts into simple, actionable activities that any parent can implement immediately.</p>
+                </details>
+            </div>
+
+            <div class="faq-item">
+                <details>
+                    <summary>What materials do I need to purchase?</summary>
+                    <p>One of the best features of this workbook is that you likely already have everything you need! Activities use common household items like measuring cups, wooden spoons, dry beans, sponges, buttons, cloths, and other items found in most homes. There's a comprehensive list of suggested materials in the introduction, and we've intentionally avoided expensive or specialized Montessori materials.</p>
+                </details>
+            </div>
+
+            <div class="faq-item">
+                <details>
+                    <summary>How much time do these activities take to set up?</summary>
+                    <p>Most activities take 15 minutes or less to prepare. We understand you're busy, so we've focused on low-prep, high-impact activities. Many can be set up while your child is engaged in something else, during nap time, or even the night before. The workbook also includes tips for batch-preparing multiple activities on weekends to save even more time during the busy week.</p>
+                </details>
+            </div>
+
+            <div class="faq-item">
+                <details>
+                    <summary>Is this suitable for my working family's schedule?</summary>
+                    <p>Yes! This workbook was created specifically with working parents in mind. Activities are designed to fit into natural moments throughout your day—morning routines, after-work time, weekends, and even meal prep. You don't need hours of dedicated time. Many activities become part of your regular routine, teaching independence while helping with household tasks. Plus, the skills your child develops will carry over throughout their day, even when you're not together.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="container">
+            <h2>What Parents Are Saying</h2>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-name">Sarah Mitchell</div>
+                    <div class="review-date">March 15, 2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">This workbook has been a game-changer for our family! As a working mom, I was struggling to find meaningful activities for my 4-year-old daughter that didn't involve screens. The activities in Monties Minders are simple to set up with things I already have at home, and my daughter is SO engaged. She's become more independent, and I love that she's learning practical life skills while having fun. The pouring and transferring activities are her favorites. Worth every penny!</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-name">James Rodriguez</div>
+                    <div class="review-date">March 8, 2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">I was skeptical about whether I could do Montessori at home without expensive materials or training, but this workbook proved me wrong. The instructions are incredibly clear, and I appreciate how each activity explains what skills my son is developing. We've been doing 2-3 activities per week, and I've noticed a huge improvement in his focus and fine motor skills. The fact that I can prep most activities in under 15 minutes is amazing for our busy schedule.</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-name">Emily Chen</div>
+                    <div class="review-date">February 28, 2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Absolutely love this resource! I'm a stay-at-home mom of twins (age 3), and this workbook has given me so many ideas for keeping them engaged and learning. The activities are organized so well by skill area, and I love that there are variations for different ages. My twins can do the same activity at their own developmental level. The practical life activities have made them so much more helpful around the house, and they're proud of their new skills!</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-name">Michael Thompson</div>
+                    <div class="review-date">February 20, 2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">As a dad who works from home, I needed activities that would keep my 5-year-old engaged while I'm in meetings. This workbook has been perfect. The activities are independent enough that he can do many of them on his own once I've introduced them, and they keep him focused for 20-30 minutes at a time. I've also noticed he's become more patient and careful with his movements. The sensory activities are particularly calming for him. Highly recommend to any parent!</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-name">Amanda Foster</div>
+                    <div class="review-date">February 12, 2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">This workbook exceeded my expectations! I bought it hoping for a few good activity ideas, but got so much more. The background information on Montessori principles helped me understand WHY each activity matters, and that's helped me be more intentional in our daily routines. My daughter (age 4) has become so much more confident and independent. She now helps with real tasks like folding laundry, pouring her own drinks, and preparing simple snacks. The best $40 I've spent on parenting resources!</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://advaice.io" class="cta-button">Join 127+ Happy Parents Today</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = scrollPercentage + '%';
+        });
+    </script>
+</body>
+</html>
