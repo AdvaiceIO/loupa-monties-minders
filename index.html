@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monties Minders - Everyday Montessori at Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #EFECE6;
+            color: #503724;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(239, 236, 230, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.25rem 0;
+            box-shadow: 0 2px 20px rgba(80, 55, 36, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8C7467;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: #503724;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            background: #DED8CD;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #8C7467;
+            color: #EFECE6;
+            transform: translateY(-2px);
+        }
+
+        /* Decorative Background Elements */
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #8C7467 0%, #DED8CD 100%);
+            top: -200px;
+            right: -200px;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(225deg, #DED8CD 0%, #8C7467 100%);
+            bottom: 10%;
+            left: -150px;
+        }
+
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(45deg, #8C7467 0%, #DED8CD 100%);
+            top: 50%;
+            right: -100px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 6rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: #503724;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero .subheadline {
+            font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+            color: #8C7467;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(80, 55, 36, 0.15);
+            margin: 3rem auto;
+            display: block;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #8C7467;
+            color: #EFECE6;
+            padding: 1.25rem 3rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(140, 116, 103, 0.3);
+            min-height: 48px;
+            line-height: 1.2;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(140, 116, 103, 0.4);
+            background: #755f54;
+        }
+
+        /* Rich Text Section */
+        .rich-text-section {
+            padding: 6rem 0;
+            background: rgba(222, 216, 205, 0.3);
+            position: relative;
+        }
+
+        .rich-text-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rich-text-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #503724;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .rich-text-section p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            color: #503724;
+            text-align: center;
+        }
+
+        .rich-text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Featured Product */
+        .featured-product {
+            padding: 6rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(80, 55, 36, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 40px rgba(80, 55, 36, 0.12);
+        }
+
+        .product-details h3 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: #503724;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            color: #8C7467;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-benefits {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .product-benefits li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.125rem;
+            color: #503724;
+        }
+
+        .product-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #8C7467;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Carousel */
+        .carousel-section {
+            padding: 6rem 0;
+            background: rgba(222, 216, 205, 0.2);
+        }
+
+        .carousel-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #503724;
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: #8C7467 #DED8CD;
+        }
+
+        .carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel::-webkit-scrollbar-track {
+            background: #DED8CD;
+            border-radius: 10px;
+        }
+
+        .carousel::-webkit-scrollbar-thumb {
+            background: #8C7467;
+            border-radius: 10px;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            scroll-snap-align: start;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 15px 50px rgba(80, 55, 36, 0.08);
+        }
+
+        .carousel-slide.reverse {
+            direction: rtl;
+        }
+
+        .carousel-slide.reverse > * {
+            direction: ltr;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(80, 55, 36, 0.1);
+        }
+
+        .carousel-text h3 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: #503724;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .carousel-text p {
+            font-size: 1.125rem;
+            color: #503724;
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+        }
+
+        .faq-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #503724;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background: white;
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(80, 55, 36, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        details:hover {
+            box-shadow: 0 15px 40px rgba(80, 55, 36, 0.12);
+        }
+
+        details[open] {
+            background: rgba(222, 216, 205, 0.3);
+        }
+
+        summary {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #503724;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary:after {
+            content: "+";
+            font-size: 1.5rem;
+            color: #8C7467;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary:after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding-top: 1.5rem;
+            color: #503724;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 6rem 0;
+            background: rgba(222, 216, 205, 0.2);
+        }
+
+        .reviews-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #503724;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(80, 55, 36, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(80, 55, 36, 0.12);
+        }
+
+        .stars {
+            color: #8C7467;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-size: 1.0625rem;
+            color: #503724;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #8C7467;
+            font-size: 1.125rem;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #503724;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .footer-cta p {
+            font-size: 1.25rem;
+            color: #8C7467;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .nav-link {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.9375rem;
+            }
+
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+
+            .product-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .carousel-slide {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .carousel-slide.reverse {
+                direction: ltr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            details {
+                padding: 1.25rem 1.5rem;
+            }
+
+            summary {
+                font-size: 1.125rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .carousel-slide {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <nav class="nav-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Monties Minders</a>
+            <a href="product.html" class="nav-link">Product Details</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Your Home Into a Montessori Paradise</h1>
+            <p class="subheadline">Simple, screen-free activities that busy parents love. No expensive materials, no complicated prep.</p>
+            <a href="https://advaice.io" class="cta-button">Get Your Workbook - $39.95</a>
+            <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/hero.png" alt="Parent and child doing Montessori activities" class="hero-image">
+        </div>
+    </section>
+
+    <section class="rich-text-section">
+        <div class="container">
+            <div class="rich-text-content">
+                <h2>Montessori Made Simple for Real Life</h2>
+                <p>You want the best for your child. You've heard about Montessori's incredible benefits - independence, focus, love of learning - but every guide you find requires expensive materials, hours of preparation, or specialized training.</p>
+                <p>We created Monties Minders for parents like you: busy, dedicated, and ready to give your 3-5 year old meaningful experiences without the overwhelm.</p>
+                <p>Our interactive workbook gives you 50+ ready-to-use activities using items you already have at home. Each activity takes less than 15 minutes to set up and naturally develops your child's fine motor skills, independence, and sensory awareness.</p>
+                <p>This isn't about perfection. It's about progress, connection, and watching your little one thrive.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-product">
+        <div class="container">
+            <div class="product-card">
+                <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/product.png" alt="Monties Minders Workbook" class="product-image">
+                <div class="product-details">
+                    <h3>Everyday Montessori at Home</h3>
+                    <div class="product-price">$39.95</div>
+                    <ul class="product-benefits">
+                        <li>50+ screen-free activities using household items</li>
+                        <li>Zero expensive materials or special training required</li>
+                        <li>15-minute setup for busy parents who want meaningful engagement</li>
+                    </ul>
+                    <a href="https://advaice.io" class="cta-button">Start Your Montessori Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="carousel-section">
+        <div class="container">
+            <h2>What's Inside Your Workbook</h2>
+            <div class="carousel">
+                <div class="carousel-slide">
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/carousel1.png" alt="Practical life activities" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Practical Life Activities</h3>
+                        <p>Build independence and confidence through everyday tasks. Your child learns to pour, sort, button, and organize using simple household items. These activities develop concentration, coordination, and a sense of accomplishment that lasts a lifetime.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide reverse">
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/carousel2.png" alt="Sensory development" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Sensory Development</h3>
+                        <p>Engage all five senses with activities designed to refine perception and awareness. From texture exploration to sound matching, these exercises use items you already have - rice, beans, fabric scraps, and kitchen tools - to create rich learning experiences.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://nyrslifytgbluamxpqzq.supabase.co/storage/v1/object/public/website-images/monties-minders/carousel3.png" alt="Parent-child connection" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Connection & Growth</h3>
+                        <p>Create meaningful moments while developing fine motor skills and hand-eye coordination. Each activity includes simple instructions, material lists, and developmental milestones so you understand exactly what your child is learning and how to support them.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Common Questions</h2>
+            <div class="faq-container">
+                <details>
+                    <summary>Do I need to buy expensive Montessori materials?</summary>
+                    <div class="faq-answer">
+                        Not at all! That's the beauty of Monties Minders. Every activity uses items you already have at home - things like kitchen utensils, buttons, bowls, fabric scraps, and natural objects. We designed this workbook specifically to eliminate the barrier of expensive specialty materials. If we suggest something you don't have, we always provide common household alternatives.
+                    </div>
+                </details>
+                <details>
+                    <summary>How much time do I need for each activity?</summary>
+                    <div class="faq-answer">
+                        Setup takes less than 15 minutes per activity, and many take just 5 minutes to prepare. Your child can then engage with the activity for 10-30 minutes depending on their interest and age. We understand you're busy - these activities fit into real life, not Pinterest-perfect fantasy schedules. You can do one activity per day, or several throughout the week.
+                    </div>
+                </details>
+                <details>
+                    <summary>I have no Montessori training. Will I be able to do this?</summary>
+                    <div class="faq-answer">
+                        Absolutely yes! We created this workbook specifically for parents without formal training. Each activity includes step-by-step instructions, photos or illustrations, and explanations of what developmental skills your child is building. You'll learn the Montessori principles naturally as you go, without needing to take courses or read dense educational theory. If you can follow a recipe, you can use this workbook.
+                    </div>
+                </details>
+                <details>
+                    <summary>What if my child isn't interested in an activity?</summary>
+                    <div class="faq-answer">
+                        That's completely normal and expected! Montessori is all about following the child's interests. The workbook includes 50+ activities specifically so you have variety and options. We provide guidance on how to observe your child's readiness and interest levels, and how to modify activities to match their developmental stage. Some activities your child will love immediately, others they'll come back to months later. There's no pressure to complete everything in order.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="container">
+            <h2>What Parents Are Saying</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Finally, a Montessori resource that actually fits into our busy life! My 4-year-old daughter loves the pouring and sorting activities, and I love that I didn't have to buy anything new. Setup is so quick I can do it while making breakfast."</p>
+                    <div class="reviewer-name">— Sarah M., Working Mom of Two</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"I was intimidated by Montessori before this workbook. The instructions are so clear and encouraging. My son's fine motor skills have improved dramatically in just 6 weeks. He asks to do 'his activities' every day now!"</p>
+                    <div class="reviewer-name">— James T., Stay-at-Home Dad</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Best $40 I've spent on parenting resources. The activities are actually doable and my twins (age 3) can work on them independently while I get things done. No screens needed, just simple engagement and learning."</p>
+                    <div class="reviewer-name">— Michelle K., Parent of Twins</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-cta">
+        <div class="container">
+            <h2>Ready to Bring Montessori Home?</h2>
+            <p>Join hundreds of parents who are creating meaningful learning experiences without the overwhelm.</p>
+            <a href="https://advaice.io" class="cta-button">Get Instant Access - $39.95</a>
+        </div>
+    </section>
+
+</body>
+</html>
